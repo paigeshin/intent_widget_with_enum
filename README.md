@@ -298,3 +298,15 @@ func provideSelectedCryptoOptionsCollection(
 ```
 
 7. Go to your Intent Extension and adopt `copied protocol` 
+
+
+
+---
+
+![alt text](./1.png)
+
+![alt text](./2.png)
+
+![alt text](./3.png)
+
+![alt text](./4.png)
