@@ -238,3 +238,63 @@ struct ExpenseWidget: Widget {
 }
 
 ```
+
+
+# Intent for Custom Type
+
+https://swiftsenpai.com/development/configurable-widgets-dynamic-options/
+
+### Custom Type Intent 
+
+1. Define your custom type
+
+   1) Define your parameter
+
+      - Set type of your 
+      - Check Options are provided dynamically
+     
+2. Set up the intents extension
+
+3. In your custom intent, open the auto-generated class, copy it
+
+4. Paste it as class name in supported intents (Target of your intents extension)
+
+5. In your widget, add target membership for IntentExtension
+
+6. In your custom intent, open the auto-generated class again to find out protocol
+
+### Source Code 
+
+```swift
+func provideSelectedCryptoOptionsCollection(
+    for intent: CryptoPriceConfigurationIntent
+) async throws -> INObjectCollection<Crypto> {
+    
+    // 1
+    // Fetch list of top ten crypto from API
+    let assets = try await AssetFetcher.fetchTopTenAssets()
+    
+    // 2
+    // Transform `[Asset]` to `[Crypto]`
+    let cryptos = assets.map { asset in
+        
+        let crypto = Crypto(
+            identifier: asset.id,
+            display: "\(asset.name) (\(asset.symbol))"
+        )
+        crypto.symbol = asset.symbol
+        crypto.name = asset.name
+        
+        return crypto
+    }
+    
+    // 3
+    // Create a collection with the array of cryptos.
+    let collection = INObjectCollection(items: cryptos)
+    
+    // Return the collections
+    return collection
+}
+```
+
+7. Go to your Intent Extension and adopt `copied protocol` 
